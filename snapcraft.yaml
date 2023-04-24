@@ -29,14 +29,11 @@ parts:
     override-pull: |
       craftctl default
       craftctl set version=$(git describe --tags --abbrev=0)
-    override-build: |
-      set -ex
-      xmlstarlet edit -L -u "/schemalist/schema/key[@name='tts-command']/default" -v "'espeak-ng -v mb-en1'" $CRAFT_PART_BUILD/data/com.github.johnfactotum.Foliate.gschema.xml
-      craftctl default
     meson-parameters: [--prefix=/snap/foliate/current/usr]
     build-packages:
-      - git # for set-version
-      - xmlstarlet  # for override-build
+      - git
+      - build-essential
+      - xmlstarlet  
     organize:
       snap/foliate/current/usr: usr
     parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.appdata.xml]
@@ -44,8 +41,8 @@ parts:
     plugin: nil
     stage-packages:
       - espeak-ng
-      - mbrola-en1
-      - mbrola
+      - speech-dispatcher-espeak-ng
+      
 
 slots:
   dbus-daemon:
@@ -53,14 +50,8 @@ slots:
     bus: session
     name: com.github.johnfactotum.Foliate
 
-#layout:
-  #/usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data:
-    #symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data
-  # This is a bind instead of a (faster) symlink because mbrola uses LD_PRELOAD
-  # with libraries from this directory, which doesn't work with symlinks.
-  #/usr/lib/$CRAFT_ARCH_TRIPLET/mbrola:
-    #bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/mbrola
-  #/usr/share/mbrola:
-    #symlink: $SNAP/usr/share/mbrola
-  #/usr/bin/gjs:
-    #symlink: $SNAP/gnome-platform/usr/bin/gjs
+layout:
+  /usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data:
+    symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data
+  /usr/bin/gjs:
+    symlink: $SNAP/gnome-platform/usr/bin/gjs
