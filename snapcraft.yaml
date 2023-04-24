@@ -15,7 +15,7 @@ architectures:
 
 apps:
   foliate:
-    command: usr/bin/com.github.johnfactotum.Foliate
+    command: usr/local/bin/com.github.johnfactotum.Foliate
     extensions: [gnome]
     plugs:
       - network
@@ -32,19 +32,18 @@ parts:
     override-pull: |
       craftctl default
       craftctl set version=$(git describe --tags --abbrev=0)
-    meson-parameters: [--prefix=/snap/foliate/current/usr]
     build-packages:
       - git
       - build-essential
       - xmlstarlet  
-    organize:
-      snap/foliate/current/usr: usr
     parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.appdata.xml]
   tts:
     plugin: nil
     stage-packages:
       - espeak-ng
       - speech-dispatcher-espeak-ng
+      - libaudio2
+      - libsndio7.0
       
 
 slots:
