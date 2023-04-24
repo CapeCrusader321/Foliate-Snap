@@ -1,36 +1,63 @@
-name: foliate-gtk
-base: core22
-version: '2.5.4'
-summary: Ebook Reader built in Gtk and javascript
-description: |
-  Ebook Reader, experimental builds
+name: foliate
 grade: stable
-confinement: strict
-compression: lzo
-architectures:
-  - build-on: amd64
-    build-for: amd64
+adopt-info: foliate
+license: GPL-3.0+
 
+base: core22
+confinement: strict
+
+apps:
+  foliate:
+    command: usr/bin/com.github.johnfactotum.Foliate
+    extensions: [gnome]
+    plugs:
+      - network
+      - audio-playback
+      - removable-media
+    slots:
+      - dbus-daemon
+    common-id: com.github.johnfactotum.Foliate
+
+parts:
+  foliate:
+    plugin: meson
+    source: .
+    override-pull: |
+      craftctl default
+      sed -i -e 's|@GJS@|/usr/bin/gjs|g' src/com.github.johnfactotum.Foliate.in
+      craftctl set-version $(git describe --tags --abbrev=10)
+    override-build: |
+      set -ex
+      xmlstarlet edit -L -u "/schemalist/schema/key[@name='tts-command']/default" -v "'espeak-ng -v mb-en1'" $CRAFT_PART_BUILD/data/com.github.johnfactotum.Foliate.gschema.xml
+      craftctl default
+    meson-parameters: [--prefix=/snap/foliate/current/usr]
+    build-packages:
+      - git # for set-version
+      - xmlstarlet  # for override-build
+    organize:
+      snap/foliate/current/usr: usr
+    parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.appdata.xml]
+  tts:
+    plugin: nil
+    stage-packages:
+      - espeak-ng
+      - mbrola-en1
+      - mbrola
 
 slots:
-  foliate-gtk:
+  dbus-daemon:
     interface: dbus
     bus: session
     name: com.github.johnfactotum.Foliate
 
-apps:
-  foliate-gtk:
-    command: usr/bin/com.github.johnfactotum.Foliate
-    extensions: [gnome]
-    common-id: com.github.johnfactotum.Foliate
-    desktop: usr/share/applications/com.github.johnfactotum.Foliate.desktop
-    
-parts:
-  foliate-gtk:
-    source: https://github.com/johnfactotum/foliate/releases/download/2.6.4/com.github.johnfactotum.foliate_2.6.4_all.deb
-    plugin: dump
-    stage-packages:
-      - gjs
-      - libgjs0g
-      - libmozjs-91-0
-    
+layout:
+  /usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data:
+    symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data
+  # This is a bind instead of a (faster) symlink because mbrola uses LD_PRELOAD
+  # with libraries from this directory, which doesn't work with symlinks.
+  /usr/lib/$CRAFT_ARCH_TRIPLET/mbrola:
+    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/mbrola
+  /usr/share/mbrola:
+    symlink: $SNAP/usr/share/mbrola
+  /usr/bin/gjs:
+    symlink: $SNAP/gnome-platform/usr/bin/gjs
