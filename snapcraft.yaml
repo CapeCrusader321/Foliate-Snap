@@ -15,7 +15,7 @@ architectures:
 
 apps:
   foliate:
-    command: usr/local/bin/com.github.johnfactotum.Foliate
+    command: bin/com.github.johnfactotum.Foliate
     extensions: [gnome]
     plugs:
       - network
