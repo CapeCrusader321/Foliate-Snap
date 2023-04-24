@@ -1,6 +1,7 @@
 name: foliate-gtk
 base: core22
 adopt-info: foliate-gtk
+version: '2.5.4'
 grade: stable
 confinement: strict
 compression: lzo
