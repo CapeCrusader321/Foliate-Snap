@@ -1,6 +1,6 @@
 name: foliate-gtk
 base: core22
-adopt-info: foliate-gtk
+version: '2.5.4'
 summary: Ebook Reader built in Gtk and javascript
 description: |
   Ebook Reader, experimental builds
