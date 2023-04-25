@@ -1,6 +1,6 @@
 name: foliate
 grade: stable
-adopt-info: foliate
+version: '2.5.4'
 summary: Foliate is a Simple Yet Powerful  E-Book Reader built in Gtk.
 description: |
   Simple, Advanced and Lightweight Ebook Reader.
@@ -11,8 +11,7 @@ compression: lzo
 architectures:
   - build-on: [amd64]
     build-for: [amd64]
-
-
+    
 apps:
   foliate:
     command: bin/com.github.johnfactotum.Foliate
@@ -28,15 +27,16 @@ apps:
 parts:
   foliate:
     plugin: meson
-    source: https://github.com/johnfactotum/foliate.git
-    override-pull: |
-      craftctl default
-      craftctl set version=$(git describe --tags --abbrev=0)
+    source: https://github.com/johnfactotum/foliate/archive/refs/tags/2.6.4.tar.gz
+    meson-parameters: [--prefix=/snap/foliate/current/usr]
     build-packages:
       - git
       - build-essential
       - xmlstarlet  
     parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.appdata.xml]
+    organize:
+      snap/foliate/current/usr: usr
+      
   tts:
     plugin: nil
     stage-packages:
