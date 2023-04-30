@@ -48,6 +48,9 @@ parts:
       - libgjs-dev
       - build-essential
       - xmlstarlet 
+    stage-packages:
+      - libgjs0g
+      - libmozjs-91-0
     parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.appdata.xml]
     organize:
       snap/foliate/current/usr: usr
