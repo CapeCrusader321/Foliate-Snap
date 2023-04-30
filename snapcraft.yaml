@@ -41,7 +41,7 @@ parts:
     source: https://github.com/johnfactotum/foliate/archive/refs/tags/2.6.4.tar.gz
     meson-parameters: [--prefix=/snap/foliate/current/usr]
     override-pull: |
-      craftctl pull
+      craftctl default
       sed -i -e 's|@GJS@|/usr/bin/gjs|g' src/com.github.johnfactotum.Foliate.in
     build-packages:
       - git
