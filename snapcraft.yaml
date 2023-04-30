@@ -15,8 +15,7 @@ layout:
   /usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data:
     symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data
   /usr/bin/gjs:
-    symlink: $SNAP/gnome-platform/usr/bin/gjs
-
+    symlink: $SNAP/usr/bin/gjs
 
 slots:
   dbus-daemon:
@@ -41,10 +40,16 @@ parts:
     plugin: meson
     source: https://github.com/johnfactotum/foliate/archive/refs/tags/2.6.4.tar.gz
     meson-parameters: [--prefix=/snap/foliate/current/usr]
+    override-pull: |
+      craftctl pull
+      sed -i -e 's|@GJS@|/usr/bin/gjs|g' src/com.github.johnfactotum.Foliate.in
     build-packages:
       - git
+      - libgjs-dev
       - build-essential
-      - xmlstarlet  
+      - xmlstarlet 
+    stage-packages:
+      - gjs
     parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.appdata.xml]
     organize:
       snap/foliate/current/usr: usr
