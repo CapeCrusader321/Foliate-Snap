@@ -23,9 +23,6 @@ slots:
     bus: session
     name: com.github.johnfactotum.Foliate
 
-environment:
-   GI_TYPELIB_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gjs/girepository-1.0
-
 apps:
   foliate-gtk:
     command: usr/bin/com.github.johnfactotum.Foliate
@@ -37,6 +34,8 @@ apps:
     slots:
       - dbus-daemon
     common-id: com.github.johnfactotum.Foliate
+    environment:
+      GI_TYPELIB_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gjs/girepository-1.0
 
 parts:
   foliate-gtk:
@@ -51,9 +50,6 @@ parts:
       - libgjs-dev
       - build-essential
       - xmlstarlet 
-    stage-packages:
-      - libgjs0g
-      - libmozjs-91-0
     parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.appdata.xml]
     organize:
       snap/foliate/current/usr: usr
@@ -65,6 +61,3 @@ parts:
       - speech-dispatcher-espeak-ng
       - libaudio2
       - libsndio7.0
-      
-
-
