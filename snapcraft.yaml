@@ -1,4 +1,4 @@
-name: foliate-gtk
+name: foliate
 grade: stable
 version: '2.5.4'
 summary: Foliate is a Simple Yet Powerful  E-Book Reader built in Gtk.
@@ -24,24 +24,21 @@ slots:
     name: com.github.johnfactotum.Foliate
 
 apps:
-  foliate-gtk:
+  foliate:
     command: usr/bin/com.github.johnfactotum.Foliate
     extensions: [gnome]
-    environment:
-      GI_TYPELIB_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gjs/girepository-1.0
     plugs:
       - home
-      - raw-usb
-      - optical-drive
-      - network-status
       - network
       - audio-playback
       - removable-media
     slots:
       - dbus-daemon
+    desktop: usr/share/applications/com.github.johnfactotum.Foliate.desktop
     common-id: com.github.johnfactotum.Foliate
-    #desktop: usr/share/applications/com.github.johnfactotum.Foliate.desktop
-    
+    environment:
+      GI_TYPELIB_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gjs/girepository-1.0
+
 parts:
   foliate-gtk:
     plugin: meson
