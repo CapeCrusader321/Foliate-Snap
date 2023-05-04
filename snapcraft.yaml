@@ -41,7 +41,7 @@ parts:
   foliate-gtk:
     plugin: meson
     source: https://github.com/johnfactotum/foliate/archive/refs/tags/2.6.4.tar.gz
-    meson-parameters: [--prefix=/snap/foliate/current/usr]
+    meson-parameters: [--prefix=/snap/foliate-gtk/current/usr]
     override-pull: |
       craftctl default
       sed -i -e 's|@GJS@|/usr/bin/gjs|g' src/com.github.johnfactotum.Foliate.in
@@ -52,7 +52,7 @@ parts:
       - xmlstarlet 
     parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.appdata.xml]
     organize:
-      snap/foliate/current/usr: usr
+      snap/foliate-gtk/current/usr: usr
       
   tts:
     plugin: nil
