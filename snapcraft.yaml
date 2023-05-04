@@ -30,6 +30,10 @@ apps:
     environment:
       GI_TYPELIB_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gjs/girepository-1.0
     plugs:
+      - home
+      - raw-usb
+      - optical-drive
+      - network-status
       - network
       - audio-playback
       - removable-media
