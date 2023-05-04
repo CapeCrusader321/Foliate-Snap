@@ -40,7 +40,7 @@ apps:
     slots:
       - dbus-daemon
     common-id: com.github.johnfactotum.Foliate
-    desktop: usr/share/applications/com.github.johnfactotum.Foliate.desktop
+    #desktop: usr/share/applications/com.github.johnfactotum.Foliate.desktop
     
 parts:
   foliate-gtk:
