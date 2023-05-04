@@ -1,4 +1,4 @@
-name: foliate
+name: foliate-gtk
 grade: stable
 version: '2.5.4'
 summary: Foliate is a Simple Yet Powerful  E-Book Reader built in Gtk.
@@ -24,7 +24,7 @@ slots:
     name: com.github.johnfactotum.Foliate
 
 apps:
-  foliate:
+  foliate-gtk:
     command: usr/bin/com.github.johnfactotum.Foliate
     extensions: [gnome]
     plugs:
