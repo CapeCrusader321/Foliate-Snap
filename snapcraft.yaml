@@ -11,7 +11,6 @@ compression: lzo
 architectures:
   - amd64
   - arm64
-  - armhf
 layout:
   /usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data:
     symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data
